@@ -22,7 +22,7 @@
 ## 📊 Visualization
 Here’s the final output of the analysis:
 
-![Podium Chart](images/podium_chart.png)
+![Podium Chart](images/podiums_2025_updated.png)
 
 ---
 
