@@ -1,23 +1,23 @@
 import pandas as pd
 from matplotlib import pyplot as plt
 
-# Read your CSV
+#Read CSV
 df = pd.read_csv(r'C:\VsCode\F1_Projects\1_results_2025.csv')
 
-# Clean up column names (remove leading/trailing spaces)
+#Clean up column names (because yes)
 df.columns = df.columns.str.strip()
 
 print("Cleaned columns:", df.columns.tolist())
 
-# Combine the team columns for podiums
+#Combine the team columns for podiums
 podiums = pd.concat([df['Team_p1'], df['Team_p2'], df['Team_p3']]).dropna()
 
-# Count podiums by team
+#Count podiums by team
 counts = podiums.value_counts()
 result = counts.reset_index()
 result.columns = ['Team', 'Podiums']
 
-# 🎨 Official 2025 F1 Team Colors
+#Official 2025 F1 Team Colors
 team_colors = {
     'Red Bull Racing': '#1E41FF',    # dark blue
     'Ferrari': '#DC0000',            # red
@@ -31,24 +31,24 @@ team_colors = {
     'Haas': '#FFFFFF',               # white
 }
 
-# Assign team color if known, else grey
+#Assign team color if known, else grey
 colors = [team_colors.get(team, '#808080') for team in result['Team']]
 
-# Create the figure
+#Create the figure
 plt.figure(figsize=(10,6))
 
 plt.ylim(0, 40)
 
-# Save the bars so we can label them
+#Save the bars to label them
 bars = plt.bar(result['Team'], result['Podiums'], color=colors)
 
-# Add value labels above bars
+#Adding value labels above bars
 for bar in bars:
     height = bar.get_height()
     plt.text(bar.get_x() + bar.get_width()/2, height + 0.5,
              f'{int(height)}', ha='center', va='bottom', fontsize=10, fontweight='bold')
 
-# Style and formatting
+#Style and formatting
 plt.title('Total Podiums by Team (2025 Season)', fontsize=14, fontweight='bold')
 plt.xlabel('Team')
 plt.ylabel('Number of Podiums')
